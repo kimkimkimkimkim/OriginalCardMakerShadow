@@ -11,6 +11,8 @@ namespace GameBase
         public const int FIXED_RES_HEIGHT = 1920;
         public const int FIXED_RES_WIDTH = 1080;
 
+        public Transform canvas;
+
         public Transform dialogParant;
 
         public Transform windowParent;
