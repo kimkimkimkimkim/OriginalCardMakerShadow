@@ -11,6 +11,7 @@ public class CardCreateWindowUIScript : WindowBase
     const float CARD_HEIGHT = 1076.0f;
 
     [SerializeField] protected Button _backButton;
+    [SerializeField] protected RectTransform _windowRT;
     [SerializeField] protected RectTransform _cardRT;
     [SerializeField] protected Button _editClassButton;
     [SerializeField] protected Button _editNameButton;
@@ -46,6 +47,10 @@ public class CardCreateWindowUIScript : WindowBase
         _backButton.OnClickIntentAsObservable(ButtonClickIntent.OnlyOneTap)
             .SelectMany(_ => UIManager.Instance.CloseWindowObservable())
             .Do(_ => onClickClose())
+            .Subscribe();
+
+        _editClassButton.OnClickIntentAsObservable()
+            .SelectMany(_ => CardSelectClassDialogFactory.Create(new CardSelectClassDialogRequest()))
             .Subscribe();
 
         _editNameButton.OnClickIntentAsObservable()
@@ -163,8 +168,8 @@ public class CardCreateWindowUIScript : WindowBase
 
     private void ResizeCardSize()
     {
-        var deviceWidth = UIManager.Instance.canvas.GetComponent<RectTransform>().sizeDelta.x;
-        var deviceHeight = UIManager.Instance.canvas.GetComponent<RectTransform>().sizeDelta.y;
+        var deviceWidth = _windowRT.rect.width;
+        var deviceHeight = _windowRT.rect.height;
         var widthRatio = deviceWidth / CARD_WIDTH;
         var heightRatio = deviceHeight / CARD_HEIGHT;
 
