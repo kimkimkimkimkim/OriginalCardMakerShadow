@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameBase;
 using UniRx;
 using UnityEngine;
@@ -34,6 +35,10 @@ public class CardCreateWindowUIScript : WindowBase
     [SerializeField] protected InputField _evolvedDescriptionInputField;
     [SerializeField] protected Text _unevolvedAttackText;
     [SerializeField] protected Text _unevolvedDefenseText;
+    [SerializeField] protected List<Sprite> _followerBackgroundSpriteList; // CardClassEnum順に格納
+    [SerializeField] protected List<Sprite> _spellBackgroundSpriteList; // CardClassEnum順に格納
+    [SerializeField] protected List<Sprite> _amuletBackgroundSpriteList; // CardClassEnum順に格納
+    [SerializeField] protected Image _backgroundImage;
 
     private CardInfo cardInfo = new CardInfo();
 
@@ -50,7 +55,13 @@ public class CardCreateWindowUIScript : WindowBase
             .Subscribe();
 
         _editClassButton.OnClickIntentAsObservable()
-            .SelectMany(_ => CardSelectClassDialogFactory.Create(new CardSelectClassDialogRequest()))
+            .SelectMany(_ => CardSelectClassDialogFactory.Create(new CardSelectClassDialogRequest() { cardClass = cardInfo.cardClass}))
+            .Where(res => res.responseType == CommonDialogResponseType.Yes)
+            .Do(res =>
+            {
+                cardInfo.cardClass = res.cardClass;
+                RefreshClass();
+            })
             .Subscribe();
 
         _editNameButton.OnClickIntentAsObservable()
@@ -173,8 +184,6 @@ public class CardCreateWindowUIScript : WindowBase
         var widthRatio = deviceWidth / CARD_WIDTH;
         var heightRatio = deviceHeight / CARD_HEIGHT;
 
-        Debug.Log($"width:{deviceWidth} height:{deviceHeight}");
-
         // 比率が小さい方に合わせてサイズ調整
         var ratio = Math.Min(widthRatio, heightRatio);
         _cardRT.localScale = new Vector2(ratio, ratio);
@@ -196,7 +205,13 @@ public class CardCreateWindowUIScript : WindowBase
 
     private void RefreshClass()
     {
+        var spriteList =
+            cardInfo.type == Type.Follower ? _followerBackgroundSpriteList :
+            cardInfo.type == Type.Spell ? _spellBackgroundSpriteList :
+            _amuletBackgroundSpriteList;
 
+        var sprite = spriteList[(int)cardInfo.cardClass];
+        _backgroundImage.sprite = sprite;
     }
 
     private void RefreshRarity()

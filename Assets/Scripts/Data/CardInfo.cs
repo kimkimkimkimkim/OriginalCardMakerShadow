@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CardInfo
+﻿public class CardInfo
 {
     public CardClass cardClass { get; set; }
+    public Type type { get; set; }
     public string name { get; set; }
     public Rarity rarity { get; set; }
     public int cost { get; set; }
@@ -18,7 +15,7 @@ public class CardInfo
 
 public enum CardClass
 {
-    Neutral,
+    Neutral = 0,
     Elf,
     Royal,
     Witch,
@@ -31,8 +28,15 @@ public enum CardClass
 
 public enum Rarity
 {
-    Bronze,
+    Bronze = 0,
     Silver,
     Gold,
     Legend,
+}
+
+public enum Type
+{
+    Follower = 0,
+    Spell,
+    Amulet,
 }
