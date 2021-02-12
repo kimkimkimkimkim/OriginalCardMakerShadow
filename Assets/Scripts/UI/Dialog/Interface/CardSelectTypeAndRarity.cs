@@ -1,18 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CardSelectTypeAndRarity : MonoBehaviour
+﻿public class CardSelectTypeAndRarityDialogRequest
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    /// <summary>
+    /// タイプ
+    /// </summary>
+    public Type type { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// レアリティ
+    /// </summary>
+    public Rarity rarity { get; set; }
+}
+
+public class CardSelectTypeAndRarityDialogResponse
+{
+    /// <summary>
+    /// レスポンスタイプ
+    /// </summary>
+    public CommonDialogResponseType responseType { get; set; }
+
+    /// <summary>
+    /// タイプ
+    /// </summary>
+    public Type type { get; set; }
+
+    /// <summary>
+    /// レアリティ
+    /// </summary>
+    public Rarity rarity { get; set; }
 }

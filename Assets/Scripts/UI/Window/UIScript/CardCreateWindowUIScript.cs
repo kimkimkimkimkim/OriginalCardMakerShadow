@@ -64,6 +64,21 @@ public class CardCreateWindowUIScript : WindowBase
             })
             .Subscribe();
 
+        _editRarityButton.OnClickIntentAsObservable()
+            .SelectMany(_ => CardSelectTypeAndRarityDialogFactory.Create(new CardSelectTypeAndRarityDialogRequest() { 
+                type = cardInfo.type,
+                rarity = cardInfo.rarity,
+            }))
+            .Where(res => res.responseType == CommonDialogResponseType.Yes)
+            .Do(res =>
+            {
+                cardInfo.type = res.type;
+                cardInfo.rarity = res.rarity;
+                RefreshClass();
+                RefreshTypeAndRarity();
+            })
+            .Subscribe();
+
         _editNameButton.OnClickIntentAsObservable()
             .Do(_ =>
             {
@@ -192,7 +207,7 @@ public class CardCreateWindowUIScript : WindowBase
     private void RefreshCardUI()
     {
         RefreshClass();
-        RefreshRarity();
+        RefreshTypeAndRarity();
         RefreshName();
         RefreshCost();
         RefreshUnevolvedAttack();
@@ -214,7 +229,7 @@ public class CardCreateWindowUIScript : WindowBase
         _backgroundImage.sprite = sprite;
     }
 
-    private void RefreshRarity()
+    private void RefreshTypeAndRarity()
     {
 
     }
