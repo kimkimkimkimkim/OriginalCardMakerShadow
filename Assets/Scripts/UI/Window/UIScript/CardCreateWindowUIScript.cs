@@ -25,6 +25,7 @@ public class CardCreateWindowUIScript : WindowBase
     [SerializeField] protected Button _editEvolvedDescriptionButton;
     [SerializeField] protected Button _editEvolvedAttackButton;
     [SerializeField] protected Button _editEvolvedDefenseButton;
+    [SerializeField] protected Button _editDiscriptionButton;
     [SerializeField] protected InputField _nameInputField;
     [SerializeField] protected InputField _costInputField;
     [SerializeField] protected InputField _unevolvedAttackInputField;
@@ -33,12 +34,15 @@ public class CardCreateWindowUIScript : WindowBase
     [SerializeField] protected InputField _evolvedAttackInputField;
     [SerializeField] protected InputField _evolvedDefenseInputField;
     [SerializeField] protected InputField _evolvedDescriptionInputField;
+    [SerializeField] protected InputField _discriptionInputField;
     [SerializeField] protected Text _unevolvedAttackText;
     [SerializeField] protected Text _unevolvedDefenseText;
-    [SerializeField] protected List<Sprite> _followerBackgroundSpriteList; // CardClassEnum順に格納
-    [SerializeField] protected List<Sprite> _spellBackgroundSpriteList; // CardClassEnum順に格納
-    [SerializeField] protected List<Sprite> _amuletBackgroundSpriteList; // CardClassEnum順に格納
     [SerializeField] protected Image _backgroundImage;
+    [SerializeField] protected Image _cardImage;
+    [SerializeField] protected GameObject _followerTextPanel;
+    [SerializeField] protected GameObject _spellAndAmuletTextPanel;
+    [SerializeField] protected GameObject _followerButtonPanel;
+    [SerializeField] protected GameObject _spellAndAmuletButtonPanel;
 
     private CardInfo cardInfo = new CardInfo();
 
@@ -60,7 +64,9 @@ public class CardCreateWindowUIScript : WindowBase
             .Do(res =>
             {
                 cardInfo.cardClass = res.cardClass;
+                RefreshPanel();
                 RefreshClass();
+                RefreshTypeAndRarity();
             })
             .Subscribe();
 
@@ -74,6 +80,7 @@ public class CardCreateWindowUIScript : WindowBase
             {
                 cardInfo.type = res.type;
                 cardInfo.rarity = res.rarity;
+                RefreshPanel();
                 RefreshClass();
                 RefreshTypeAndRarity();
             })
@@ -206,6 +213,7 @@ public class CardCreateWindowUIScript : WindowBase
 
     private void RefreshCardUI()
     {
+        RefreshPanel();
         RefreshClass();
         RefreshTypeAndRarity();
         RefreshName();
@@ -218,20 +226,24 @@ public class CardCreateWindowUIScript : WindowBase
         RefreshEvolvedDescription();
     }
 
+    private void RefreshPanel()
+    {
+        var isFollower = cardInfo.type == Type.Follower;
+        _followerTextPanel.SetActive(isFollower);
+        _followerButtonPanel.SetActive(isFollower);
+        _spellAndAmuletTextPanel.SetActive(!isFollower);
+        _spellAndAmuletButtonPanel.SetActive(!isFollower);
+    }
+
     private void RefreshClass()
     {
-        var spriteList =
-            cardInfo.type == Type.Follower ? _followerBackgroundSpriteList :
-            cardInfo.type == Type.Spell ? _spellBackgroundSpriteList :
-            _amuletBackgroundSpriteList;
-
-        var sprite = spriteList[(int)cardInfo.cardClass];
-        _backgroundImage.sprite = sprite;
+        _backgroundImage.sprite = OricameResourceManager.Instance.GetCardBackgroundSprite(cardInfo.cardClass,cardInfo.type);
     }
 
     private void RefreshTypeAndRarity()
     {
-
+        _backgroundImage.sprite = OricameResourceManager.Instance.GetCardBackgroundSprite(cardInfo.cardClass, cardInfo.type);
+        _cardImage.sprite = OricameResourceManager.Instance.GetCardSprite(cardInfo.cardClass, cardInfo.type, cardInfo.rarity);
     }
 
     private void RefreshName()
