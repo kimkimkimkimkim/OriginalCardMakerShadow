@@ -197,6 +197,19 @@ public class CardCreateWindowUIScript : WindowBase
             .DelayFrame(1)
             .Do(_ => _evolvedDescriptionInputField.interactable = false)
             .Subscribe();
+
+        _editDiscriptionButton.OnClickIntentAsObservable()
+            .Do(_ =>
+            {
+                _discriptionInputField.interactable = true;
+                _discriptionInputField.ActivateInputField();
+            })
+            .Subscribe();
+
+        _discriptionInputField.OnEndEditAsObservable()
+            .DelayFrame(1)
+            .Do(_ => _discriptionInputField.interactable = false)
+            .Subscribe();
     }
 
     private void ResizeCardSize()
@@ -271,6 +284,7 @@ public class CardCreateWindowUIScript : WindowBase
     private void RefreshUnevolvedDescription()
     {
         _unevolvedDescriptionInputField.text = cardInfo.unevolvedDescription;
+        _discriptionInputField.text = cardInfo.unevolvedDescription;
     }
 
     private void RefreshEvolvedAttack()

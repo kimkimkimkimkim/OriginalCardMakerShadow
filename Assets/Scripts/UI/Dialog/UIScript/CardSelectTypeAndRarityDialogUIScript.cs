@@ -91,6 +91,18 @@ public class CardSelectTypeAndRarityDialogUIScript : DialogBase
                 })
                 .Subscribe();
         });
+
+        ActivateToggle(initialType, initialRarity);
+    }
+
+    private void ActivateToggle(Type type,Rarity rarity)
+    {
+        var toggleList = 
+            type == Type.Follower ? _followerToggleList :
+            type == Type.Spell ? _spellToggleList :
+            _amuletToggleList;
+
+        toggleList[(int)rarity].isOn = true;
     }
 
     public override void Back(DialogInfo info)

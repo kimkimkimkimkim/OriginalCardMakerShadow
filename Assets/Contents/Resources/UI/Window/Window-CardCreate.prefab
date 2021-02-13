@@ -1247,6 +1247,7 @@ MonoBehaviour:
   _editEvolvedDescriptionButton: {fileID: 6756037918696335955}
   _editEvolvedAttackButton: {fileID: 4329068813200868392}
   _editEvolvedDefenseButton: {fileID: 1359688512425358102}
+  _editDiscriptionButton: {fileID: 1106574341316579874}
   _nameInputField: {fileID: 3463294619778025366}
   _costInputField: {fileID: 5658652106969062382}
   _unevolvedAttackInputField: {fileID: 5465270825180773513}
@@ -1255,6 +1256,7 @@ MonoBehaviour:
   _evolvedAttackInputField: {fileID: 8354965739453824099}
   _evolvedDefenseInputField: {fileID: 5356439890858838535}
   _evolvedDescriptionInputField: {fileID: 3547922249641316859}
+  _discriptionInputField: {fileID: 151789550632157910}
   _unevolvedAttackText: {fileID: 5790317684552581790}
   _unevolvedDefenseText: {fileID: 2271727854273382304}
   _backgroundImage: {fileID: 8861760482545545022}
