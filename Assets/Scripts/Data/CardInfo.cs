@@ -1,4 +1,6 @@
-﻿public class CardInfo
+﻿using UnityEngine;
+
+public class CardInfo
 {
     public CardClass cardClass { get; set; }
     public Type type { get; set; }
@@ -11,6 +13,7 @@
     public int evolvedAttack { get; set; }
     public int evolvedDefense { get; set; }
     public string evolvedDescription { get; set; }
+    public Texture photoTexture { get; set; }
 }
 
 public enum CardClass

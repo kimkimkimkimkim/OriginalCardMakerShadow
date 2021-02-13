@@ -39,6 +39,7 @@ public class CardCreateWindowUIScript : WindowBase
     [SerializeField] protected Text _unevolvedDefenseText;
     [SerializeField] protected Image _backgroundImage;
     [SerializeField] protected Image _cardImage;
+    [SerializeField] protected RawImage _photoRawImage;
     [SerializeField] protected GameObject _followerTextPanel;
     [SerializeField] protected GameObject _spellAndAmuletTextPanel;
     [SerializeField] protected GameObject _followerButtonPanel;
@@ -247,6 +248,40 @@ public class CardCreateWindowUIScript : WindowBase
                 RefreshUnevolvedDescription();
             })
             .Subscribe();
+
+        _editPhotoButton.OnClickIntentAsObservable()
+            .Do(_ =>
+            {
+                /*
+                case ModalDialogResponseType.Button1:
+                        TakePhotoAndCrop(1, texture =>
+                        {
+                            if (cardItem == null) return;
+
+                            _rawImage.texture = texture;
+                            cardItem.UpdateRawImage(texture);
+                        });
+                break;
+                    case ModalDialogResponseType.Button2:
+                        PickAndCrop(1, texture =>
+                        {
+                            if (cardItem == null) return;
+
+                            _rawImage.texture = texture;
+                            cardItem.UpdateRawImage(texture);
+                        });
+                break;
+                    case ModalDialogResponseType.Cancel:
+                    default:
+                        break;
+                */
+                PhotoManager.Instance.TakePhotoAndCrop(0.8f, (texture) =>
+                 {
+                     cardInfo.photoTexture = texture;
+                     RefreshPhoto();
+                 });
+            })
+            .Subscribe();
     }
 
     private void ResizeCardSize()
@@ -337,6 +372,11 @@ public class CardCreateWindowUIScript : WindowBase
     private void RefreshEvolvedDescription()
     {
         _evolvedDescriptionInputField.text = cardInfo.evolvedDescription;
+    }
+
+    private void RefreshPhoto()
+    {
+        if(cardInfo.photoTexture != null)_photoRawImage.texture = cardInfo.photoTexture;
     }
 
     public override void Open(WindowInfo info)
