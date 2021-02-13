@@ -96,7 +96,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _nameInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _nameInputField.interactable = false)
+            .Do(text =>
+            {
+                _nameInputField.interactable = false;
+                cardInfo.name = text;
+                RefreshName();
+            })
             .Subscribe();
 
         _editCostButton.OnClickIntentAsObservable()
@@ -109,7 +114,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _costInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _costInputField.interactable = false)
+            .Do(text =>
+            {
+                _costInputField.interactable = false;
+                if (int.TryParse(text, out int cost)) cardInfo.cost = cost;
+                RefreshCost();
+            })
             .Subscribe();
 
         _editUnevolvedAttackButton.OnClickIntentAsObservable()
@@ -122,10 +132,11 @@ public class CardCreateWindowUIScript : WindowBase
 
         _unevolvedAttackInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ =>
+            .Do(text =>
             {
-                _unevolvedAttackText.text = _unevolvedAttackInputField.text;
                 _unevolvedAttackInputField.interactable = false;
+                if (int.TryParse(text, out int attack)) cardInfo.unevolvedAttack = attack;
+                RefreshUnevolvedAttack();
             })
             .Subscribe();
 
@@ -139,10 +150,11 @@ public class CardCreateWindowUIScript : WindowBase
 
         _unevolvedDefenseInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ =>
+            .Do(text =>
             {
-                _unevolvedDefenseText.text = _unevolvedDefenseInputField.text;
                 _unevolvedDefenseInputField.interactable = false;
+                if (int.TryParse(text, out int defense)) cardInfo.unevolvedDefense = defense;
+                RefreshUnevolvedDefense();
             })
             .Subscribe();
 
@@ -156,7 +168,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _unevolvedDescriptionInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _unevolvedDescriptionInputField.interactable = false)
+            .Do(text =>
+            {
+                _unevolvedDescriptionInputField.interactable = false;
+                cardInfo.unevolvedDescription = text;
+                RefreshUnevolvedDescription();
+            })
             .Subscribe();
 
         _editEvolvedAttackButton.OnClickIntentAsObservable()
@@ -169,7 +186,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _evolvedAttackInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _evolvedAttackInputField.interactable = false)
+            .Do(text =>
+            {
+                _evolvedAttackInputField.interactable = false;
+                if (int.TryParse(text, out int attack)) cardInfo.evolvedAttack = attack;
+                RefreshEvolvedAttack();
+            })
             .Subscribe();
 
         _editEvolvedDefenseButton.OnClickIntentAsObservable()
@@ -182,7 +204,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _evolvedDefenseInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _evolvedDefenseInputField.interactable = false)
+            .Do(text =>
+            {
+                _evolvedDefenseInputField.interactable = false;
+                if (int.TryParse(text, out int defense)) cardInfo.evolvedDefense = defense;
+                RefreshEvolvedDefense();
+            })
             .Subscribe();
 
         _editEvolvedDescriptionButton.OnClickIntentAsObservable()
@@ -195,7 +222,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _evolvedDescriptionInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _evolvedDescriptionInputField.interactable = false)
+            .Do(text =>
+            {
+                _evolvedDescriptionInputField.interactable = false;
+                cardInfo.evolvedDescription = text;
+                RefreshEvolvedDescription();
+            })
             .Subscribe();
 
         _editDiscriptionButton.OnClickIntentAsObservable()
@@ -208,7 +240,12 @@ public class CardCreateWindowUIScript : WindowBase
 
         _discriptionInputField.OnEndEditAsObservable()
             .DelayFrame(1)
-            .Do(_ => _discriptionInputField.interactable = false)
+            .Do(text =>
+            {
+                _discriptionInputField.interactable = false;
+                cardInfo.unevolvedDescription = text;
+                RefreshUnevolvedDescription();
+            })
             .Subscribe();
     }
 
