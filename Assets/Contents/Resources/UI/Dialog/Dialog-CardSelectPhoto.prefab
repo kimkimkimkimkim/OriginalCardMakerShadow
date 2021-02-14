@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6843302301076750804}
   - component: {fileID: 126512726661797128}
-  - component: {fileID: 3996682802343876618}
+  - component: {fileID: 2961890030382082604}
   m_Layer: 5
   m_Name: Dialog-CardSelectPhoto
   m_TagString: Untagged
@@ -322,7 +322,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3275986470167432863}
   m_CullTransparentMesh: 0
---- !u!114 &3996682802343876618
+--- !u!114 &2961890030382082604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,23 +331,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3275986470167432863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b955be147fd741a5973e671129dbaef, type: 3}
+  m_Script: {fileID: 11500000, guid: dec1d6bcf40da4c3c9296ae895150068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogFrame: {fileID: 7445662291290702022}
   _grayOutImage: {fileID: 234456582966081153}
   _closeButton: {fileID: 6685975943220735443}
-  _okButton: {fileID: 1542502396157649376}
-  _toggleList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _cameraButton: {fileID: 1542502396157649376}
+  _libraryButton: {fileID: 9154229290933823315}
 --- !u!1 &5214755903562242011
 GameObject:
   m_ObjectHideFlags: 0

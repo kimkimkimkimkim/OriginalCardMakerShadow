@@ -250,36 +250,28 @@ public class CardCreateWindowUIScript : WindowBase
             .Subscribe();
 
         _editPhotoButton.OnClickIntentAsObservable()
-            .Do(_ =>
+            .SelectMany(_ => CardSelectPhotoDialogFactory.Create(new CardSelectPhotoDialogRequest()))
+            .Do(res =>
             {
-                /*
-                case ModalDialogResponseType.Button1:
-                        TakePhotoAndCrop(1, texture =>
+                switch (res.photoType) {
+                    case PhotoType.Camera:
+                        PhotoManager.Instance.TakePhotoAndCrop(0.8f, (texture) =>
                         {
-                            if (cardItem == null) return;
-
-                            _rawImage.texture = texture;
-                            cardItem.UpdateRawImage(texture);
+                            cardInfo.photoTexture = texture;
+                            RefreshPhoto();
                         });
-                break;
-                    case ModalDialogResponseType.Button2:
-                        PickAndCrop(1, texture =>
-                        {
-                            if (cardItem == null) return;
-
-                            _rawImage.texture = texture;
-                            cardItem.UpdateRawImage(texture);
-                        });
-                break;
-                    case ModalDialogResponseType.Cancel:
+                        break;
+                    case PhotoType.Library:
+                        PhotoManager.Instance.PickAndCrop(0.8f, (texture) =>
+                         {
+                             cardInfo.photoTexture = texture;
+                             RefreshPhoto();
+                         });
+                        break;
+                    case PhotoType.None:
                     default:
                         break;
-                */
-                PhotoManager.Instance.TakePhotoAndCrop(0.8f, (texture) =>
-                 {
-                     cardInfo.photoTexture = texture;
-                     RefreshPhoto();
-                 });
+                }
             })
             .Subscribe();
     }
