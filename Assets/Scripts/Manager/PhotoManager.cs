@@ -7,6 +7,9 @@ using UniRx;
 
 public class PhotoManager : SingletonMonoBehaviour<PhotoManager>
 {
+    public RectTransform _cardWholeParent;
+    public RectTransform _cardAloneParent;
+
     /// <summary>
     /// 撮影して取得した画像を切り取って返します
     /// </summary>

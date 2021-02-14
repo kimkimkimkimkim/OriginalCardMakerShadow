@@ -12,6 +12,7 @@ public class CardCreateWindowUIScript : WindowBase
     const float CARD_HEIGHT = 1076.0f;
 
     [SerializeField] protected Button _backButton;
+    [SerializeField] protected Button _createButton;
     [SerializeField] protected RectTransform _cardParentRT;
     [SerializeField] protected RectTransform _cardRT;
     [SerializeField] protected Button _editClassButton;
@@ -57,6 +58,20 @@ public class CardCreateWindowUIScript : WindowBase
         _backButton.OnClickIntentAsObservable(ButtonClickIntent.OnlyOneTap)
             .SelectMany(_ => UIManager.Instance.CloseWindowObservable())
             .Do(_ => onClickClose())
+            .Subscribe();
+
+        _createButton.OnClickIntentAsObservable()
+            .Do(_ =>
+            {
+                var cardWholeItem = UIManager.Instance.CreateContent<CardWholeItem>(PhotoManager.Instance._cardWholeParent);
+                cardWholeItem.Resize(PhotoManager.Instance._cardWholeParent);
+                cardWholeItem.RefreshUI(cardInfo);
+
+                var cardAloneItem = UIManager.Instance.CreateContent<CardAloneItem>(PhotoManager.Instance._cardAloneParent);
+                cardAloneItem.Resize(PhotoManager.Instance._cardAloneParent);
+                cardAloneItem.RefreshUI(cardInfo);
+            })
+            .SelectMany(_ => CardConfirmWindowFactory.Create(new CardConfirmWindowRequest() { cardInfo = cardInfo}))
             .Subscribe();
 
         _editClassButton.OnClickIntentAsObservable()

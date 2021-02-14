@@ -1270,6 +1270,7 @@ MonoBehaviour:
   _windowFrame: {fileID: 6652179314072903440}
   BackButtonDisabled: 0
   _backButton: {fileID: 3020169267574609915}
+  _createButton: {fileID: 6864157724370639726}
   _cardParentRT: {fileID: 884512767218698765}
   _cardRT: {fileID: 7737376741402031544}
   _editClassButton: {fileID: 9037622820312247957}
