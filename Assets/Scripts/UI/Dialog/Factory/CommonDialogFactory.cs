@@ -11,6 +11,9 @@ public class CommonDialogFactory
     {
         return Observable.Create<CommonDialogResponse>(observer => {
             var param = new Dictionary<string, object>();
+            param.Add("type", request.type);
+            param.Add("title", request.title);
+            param.Add("body", request.body);
             param.Add("onClickClose", new Action(() => {
                 observer.OnNext(new CommonDialogResponse() {});
                 observer.OnCompleted();

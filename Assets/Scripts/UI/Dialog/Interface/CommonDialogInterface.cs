@@ -1,9 +1,14 @@
 ﻿public class CommonDialogRequest
 {
     /// <summary>
+    /// ダイアログタイプ
+    /// </summary>
+    public CommonDialogType type { get; set; }
+
+    /// <summary>
     /// タイトル
     /// </summary>
-    public string title { get; set; }
+    public string title { get; set; } = "タイトル";
 
     /// <summary>
     /// 本文
@@ -23,4 +28,10 @@ public enum CommonDialogResponseType
 {
     Yes,
     No,
+}
+
+public enum CommonDialogType
+{
+    OkAndNo,
+    OnlyOk,
 }

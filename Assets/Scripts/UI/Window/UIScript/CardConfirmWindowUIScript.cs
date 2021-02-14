@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using GameBase;
 using UniRx;
 using UnityEngine;
@@ -39,6 +41,7 @@ public class CardConfirmWindowUIScript : WindowBase
             .Subscribe();
 
         _shareButton.OnClickIntentAsObservable()
+            .Do(_ => StartCoroutine(Share()))
             .Subscribe();
 
         _cardWholeSaveButton.OnClickIntentAsObservable()
@@ -109,16 +112,64 @@ public class CardConfirmWindowUIScript : WindowBase
                     }
 
                     //PlayerPrefsUtil.AddTodaySavedCount();
-                    return CommonDialogFactory.Create(new CommonDialogRequest() { body = "画像を保存しました"}).AsUnitObservable();
+                    return CommonDialogFactory.Create(new CommonDialogRequest() { 
+                        body = "画像を保存しました",
+                        type = CommonDialogType.OnlyOk
+                    }).AsUnitObservable();
                 }
                 else
                 {
-                    return CommonDialogFactory.Create(new CommonDialogRequest() { body = "画像の保存に失敗しました\nアルバムへの許可がされているかどうか確認してみてください"}).AsUnitObservable();
+                    return CommonDialogFactory.Create(new CommonDialogRequest() { 
+                        body = "画像の保存に失敗しました\nアルバムへの許可がされているかどうか確認してみてください",
+                        type = CommonDialogType.OnlyOk
+                    }).AsUnitObservable();
                 }
             })
             //.Do(_ => RefreshTodaySavedCountText())
             .Subscribe();
     }
+
+    // SNS共有処理
+    public IEnumerator Share()
+    {
+        string imagePath = Application.persistentDataPath + "/shareImage.png";
+
+        // 前回のデータを削除
+        File.Delete(imagePath);
+        // 削除が完了するまで待機
+        while (true)
+        {
+            if (!File.Exists(imagePath)) break;
+            yield return null;
+        }
+
+        // 画像を取得
+        var texture = new Texture2D(_cardWholeRenderTexture.width, _cardWholeRenderTexture.height, TextureFormat.ARGB32, false, false);
+        RenderTexture.active = _cardWholeRenderTexture;
+        texture.ReadPixels(new Rect(0, 0, _cardWholeRenderTexture.width, _cardWholeRenderTexture.height), 0, 0);
+        texture.Apply();
+        var png = texture.EncodeToPNG();
+        File.WriteAllBytes(imagePath, png);
+
+        // 撮影画像の書き込みが完了するまで待機
+        while (true)
+        {
+            if (File.Exists(imagePath)) break;
+            yield return null;
+        }
+        // 撮影画像の保存処理のため、１フレーム待機
+        yield return new WaitForEndOfFrame();
+
+        // 投稿する
+        string text = "オリジナルシャドバカード作ってみた!\n" +
+            "楽しいからみんなもやってみて！\n" +
+            "\n" +
+            //"iOS: https://apps.apple.com/us/app/id1547441197?mt=8\n" +
+            //"Android: https://play.google.com/store/apps/details?id=com.SANGWOO.OriginalCardMaker\n" +
+            "#シャドバ #オリカ #オリカメ";
+        string url = "";
+        SocialConnector.SocialConnector.Share(text, url, imagePath);
+    }   
 
     public override void Open(WindowInfo info)
     {
