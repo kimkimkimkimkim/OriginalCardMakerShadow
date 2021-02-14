@@ -12,7 +12,7 @@ public class CardCreateWindowUIScript : WindowBase
     const float CARD_HEIGHT = 1076.0f;
 
     [SerializeField] protected Button _backButton;
-    [SerializeField] protected RectTransform _windowRT;
+    [SerializeField] protected RectTransform _cardParentRT;
     [SerializeField] protected RectTransform _cardRT;
     [SerializeField] protected Button _editClassButton;
     [SerializeField] protected Button _editNameButton;
@@ -278,8 +278,8 @@ public class CardCreateWindowUIScript : WindowBase
 
     private void ResizeCardSize()
     {
-        var deviceWidth = _windowRT.rect.width;
-        var deviceHeight = _windowRT.rect.height;
+        var deviceWidth = _cardParentRT.rect.width;
+        var deviceHeight = _cardParentRT.rect.height;
         var widthRatio = deviceWidth / CARD_WIDTH;
         var heightRatio = deviceHeight / CARD_HEIGHT;
 
