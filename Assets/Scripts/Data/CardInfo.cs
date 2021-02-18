@@ -4,7 +4,7 @@ public class CardInfo
 {
     public CardClass cardClass { get; set; }
     public Type type { get; set; }
-    public string name { get; set; }
+    public string name { get; set; } = "";
     public Rarity rarity { get; set; }
     public int cost { get; set; }
     public int unevolvedAttack { get; set; }

@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.7, y: 271.3}
-  m_SizeDelta: {x: 318.45624, y: 84.77728}
+  m_AnchoredPosition: {x: 21.9, y: 271.3}
+  m_SizeDelta: {x: 334.0569, y: 84.77728}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3809044352453460221
 CanvasRenderer:
@@ -582,7 +582,6 @@ MonoBehaviour:
   _cardImage: {fileID: 1318410711991242223}
   _photoRawImage: {fileID: 1906388238800718993}
   _followerTextPanel: {fileID: 1841748690316939361}
-  _spellAndAmuletTextPanel: {fileID: 0}
 --- !u!1 &3390956575591717233
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,8 +688,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchoredPosition: {x: -22.5, y: 0}
+  m_SizeDelta: {x: -45, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1253062835629001331
 CanvasRenderer:

@@ -340,6 +340,11 @@ public class CardCreateWindowUIScript : WindowBase
 
     private void RefreshName()
     {
+        var isShort = cardInfo.name.Length <= 5;
+        var right = isShort ? -36 : 0;
+        _nameInputField.textComponent.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+        _nameInputField.textComponent.GetComponent<RectTransform>().offsetMax = new Vector2(right, 0);
+        _nameInputField.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
         _nameInputField.text = cardInfo.name;
     }
 

@@ -29,6 +29,11 @@ public class CardAloneItem : MonoBehaviour
 
     public void RefreshUI(CardInfo cardInfo)
     {
+        var isShort = cardInfo.name.Length <= 5;
+        var right = isShort ? -45 : 0;
+        _nameInputField.textComponent.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+        _nameInputField.textComponent.GetComponent<RectTransform>().offsetMax = new Vector2(right, 0);
+        _nameInputField.textComponent.horizontalOverflow = HorizontalWrapMode.Wrap;
         _nameInputField.text = cardInfo.name;
         _costInputField.text = cardInfo.cost.ToString();
         _unevolvedAttackInputField.text = cardInfo.unevolvedAttack.ToString();
