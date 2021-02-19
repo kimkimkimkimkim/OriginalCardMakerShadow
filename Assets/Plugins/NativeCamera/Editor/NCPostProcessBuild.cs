@@ -12,7 +12,7 @@ namespace NativeCameraNamespace
 	{
 		private const bool ENABLED = true;
 
-		private const string CAMERA_USAGE_DESCRIPTION = "The app requires access to the camera to take pictures or record videos with it.";
+		private const string CAMERA_USAGE_DESCRIPTION = "カメラで撮影した画像をカードの画像として使用するためにはアクセス許可が必要です。";
 		private const string MICROPHONE_USAGE_DESCRIPTION = "The app will capture microphone input in the recorded video.";
 
 		[InitializeOnLoadMethod]

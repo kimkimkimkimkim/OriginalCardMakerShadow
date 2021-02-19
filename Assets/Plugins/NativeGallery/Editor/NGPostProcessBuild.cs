@@ -12,8 +12,8 @@ namespace NativeGalleryNamespace
 	{
 		private const bool ENABLED = true;
 
-		private const string PHOTO_LIBRARY_USAGE_DESCRIPTION = "The app requires access to Photos to interact with it.";
-		private const string PHOTO_LIBRARY_ADDITIONS_USAGE_DESCRIPTION = "The app requires access to Photos to save media to it.";
+		private const string PHOTO_LIBRARY_USAGE_DESCRIPTION = "ライブラリ内の画像をカードの画像として使用するためにはアクセス許可が必要です。";
+		private const string PHOTO_LIBRARY_ADDITIONS_USAGE_DESCRIPTION = "ライブラリ内の画像をカードの画像として使用したり、作成したカードをライブラリに保存するためにはアクセス許可が必要です。";
 		private const bool DONT_ASK_LIMITED_PHOTOS_PERMISSION_AUTOMATICALLY_ON_IOS14 = true; // See: https://mackuba.eu/2020/07/07/photo-library-changes-ios-14/
 #if !UNITY_2018_1_OR_NEWER
 		private const bool MINIMUM_TARGET_8_OR_ABOVE = false;
