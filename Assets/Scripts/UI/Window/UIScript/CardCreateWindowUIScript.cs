@@ -13,6 +13,7 @@ public class CardCreateWindowUIScript : WindowBase
 
     [SerializeField] protected Button _backButton;
     [SerializeField] protected Button _createButton;
+    [SerializeField] protected Button _hintButton;
     [SerializeField] protected RectTransform _cardParentRT;
     [SerializeField] protected RectTransform _cardRT;
     [SerializeField] protected Button _editClassButton;
@@ -72,6 +73,10 @@ public class CardCreateWindowUIScript : WindowBase
                 cardAloneItem.RefreshUI(cardInfo);
             })
             .SelectMany(_ => CardConfirmWindowFactory.Create(new CardConfirmWindowRequest() { cardInfo = cardInfo}))
+            .Subscribe();
+
+        _hintButton.OnClickIntentAsObservable()
+            .SelectMany(_ => CardCreateHintDialogFactory.Create(new CardCreateHintDialogRequest()))
             .Subscribe();
 
         _editClassButton.OnClickIntentAsObservable()
