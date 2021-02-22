@@ -30,7 +30,7 @@ public class CardCreateHintDialogUIScript : DialogBase
             .SelectMany(_ =>
             {
                 //クリップボードにコピーする文字列
-                string coptyText = "<color=#BBA669></color>";
+                var coptyText = "<color=#BBA669></color>";
 
                 //クリップボードへ文字を設定(コピー)
                 GUIUtility.systemCopyBuffer = coptyText;
